@@ -1,0 +1,31 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="content center">
+    <div class="card center">
+        <form [formGroup]="joinComunityForm" (ngSubmit)="onSubmit()">
+            <input type="text" formControlName="name" id="name" name="name" placeholder="Nom Comunitat" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <p *ngIf="f.name.errors.required">El nom és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="floor" id="floor" name="floor" placeholder="Pis" [ngClass]="{ 'is-invalid': submitted && f.floor.errors }">
+            <div *ngIf="submitted && f.floor.errors" class="invalid-feedback">
+                <p *ngIf="f.floor.errors.required">El pis és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="door" id="door" name="door" placeholder="Porta" [ngClass]="{ 'is-invalid': submitted && f.door.errors }">
+            <div *ngIf="submitted && f.door.errors" class="invalid-feedback">
+                <p *ngIf="f.door.errors.required">La porta és obligatòria</p>
+            </div>
+
+            <input type="text" formControlName="side" id="side" name="side" placeholder="Escala">
+
+            <p *ngIf="message !== null" class="valid-submit"> {{message}}</p>
+            <button class="button-1">Registrar</button>
+            <p class="center"><a routerLink="/dashboard" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

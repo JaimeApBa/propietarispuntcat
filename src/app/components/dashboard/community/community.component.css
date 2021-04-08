@@ -1,0 +1,161 @@
+.content {
+    height: 80vh;
+}
+
+.contain {
+    width: 90vw;
+}
+
+.red-topline {
+    color: hsla(0, 0%, 51%, 1);
+}
+
+.searchWrap {
+    flex-wrap: wrap;
+}
+
+.searchBar {
+    background-color: hsla(0, 0%, 51%, 0.3);
+    border: 1px solid hsla(0, 0%, 51%, 1);
+    border-right: none;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    color: hsla(0, 0%, 51%, 1);
+    height: 48px;
+    box-shadow: 0px 1px 1px 1px hsla(0, 0%, 51%, 1);
+    text-indent: 10px;
+    flex-shrink: 2;
+    flex-grow: 4;
+}
+
+.button-holder {
+    background-color: hsla(0, 0%, 51%, 0.5);
+    border: 1px solid hsla(0, 0%, 51%, 1);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: hsla(0, 14%, 99%, 1);
+    height: 50px;
+    cursor: pointer;
+    width: 50px;
+    box-shadow: 0px 1px 1px 1px hsla(0, 0%, 51%, 1);
+}
+
+.search-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.search-results-bar {
+    font-size: 14px;
+    border: 2px solid hsla(0, 0%, 51%, 1);
+    justify-content: center;
+    height: 50px;
+    background-color: hsl(0, 0%, 96%);
+    cursor: pointer;
+    text-indent: 10px;
+}
+
+.search-results-bar p {
+    display: inline-block;
+}
+
+.button-3 {
+    margin-left: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.itemsWrap {
+    display: flex;
+    width: 100%;
+}
+
+.itemContain {
+    width: 100%;
+    height: auto;
+    border-width: 1px;
+    border-color: hsla(191, 71%, 40%, 0.5);
+    background-color: hsla(191, 71%, 40%, 0.1);
+    color: hsla(191, 71%, 40%, 1);
+    font-size: 16px;
+    padding-left: 10px;
+    margin: 20px 0;
+    padding-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.item2,
+.item3,
+.item4,
+.item5 {
+    display: none;
+}
+
+@media screen and (min-width: 425px) {
+    .button-1 {
+        width: 200px;
+    }
+    .bt {
+        justify-content: flex-end;
+    }
+    .searchWrap {
+        justify-content: flex-start;
+    }
+    .containWrap {
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .itemContain {
+        width: calc(55vw/ 6);
+        margin-right: 10px;
+        height: auto;
+    }
+    .item1 {
+        flex-basis: 15em;
+    }
+    .item2,
+    .item4,
+    .item5 {
+        flex-basis: 10em;
+    }
+    .item3 {
+        flex-basis: 20em;
+    }
+    .item4 {
+        flex-basis: 7em;
+    }
+    .item2,
+    .item3,
+    .item4,
+    .item5 {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .content {
+        position: relative;
+        left: 30vw;
+        margin-top: -426px;
+        width: 60vw;
+    }
+    .search-field {
+        width: 100%;
+    }
+}
+
+@media (max-width:1200px) and (min-width: 900px) {
+    .content {
+        position: relative;
+        width: 55vw;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .text::after {
+        content: 'Les teves comunitats';
+    }
+}
