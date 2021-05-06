@@ -1,0 +1,151 @@
+.searchBar {
+    background-color: hsla(0, 0%, 51%, 0.3);
+    border: 1px solid hsla(0, 0%, 51%, 1);
+    border-right: none;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    color: hsla(0, 0%, 51%, 1);
+    height: 48px;
+    box-shadow: 0px 1px 1px 1px hsla(0, 0%, 51%, 1);
+    text-indent: 10px;
+    flex-shrink: 2;
+    flex-grow: 4;
+}
+
+.button-holder {
+    background-color: hsla(0, 0%, 51%, 0.5);
+    border: 1px solid hsla(0, 0%, 51%, 1);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: hsla(0, 14%, 99%, 1);
+    height: 50px;
+    cursor: pointer;
+    width: 50px;
+    box-shadow: 0px 1px 1px 1px hsla(0, 0%, 51%, 1);
+}
+
+.search-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.search-field-container {
+    position: absolute;
+    width: 85%;
+}
+
+.search-results-bar {
+    font-size: 14px;
+    border: 2px solid hsla(0, 0%, 51%, 1);
+    justify-content: center;
+    height: 50px;
+    background-color: hsl(0, 0%, 96%);
+    cursor: pointer;
+    text-indent: 10px;
+}
+
+.search-results-bar p {
+    display: inline-block;
+}
+
+.button-3 {
+    margin-left: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.text-format {
+    text-indent: 10px;
+    margin-top: -20px;
+    margin-bottom: 60px;
+}
+
+.custom-select {
+    height: 40px;
+    border: 1px solid hsla(0, 70%, 69%, 1);
+    color: hsla(0, 70%, 69%, 1);
+    background-color: hsla(0, 70%, 69%, 0.1);
+    text-indent: 3px;
+    width: 100%;
+}
+
+.formContent {
+    margin-top: 25px;
+}
+
+.fa-file-pdf-o:hover {
+    color: hsla(0, 70%, 69%, 1);
+    cursor: pointer;
+}
+
+.text-link {
+    cursor: pointer;
+}
+
+.text-mb-25 {
+    margin-bottom: 25px;
+}
+
+.text-mb-40 {
+    margin-bottom: 40px;
+}
+
+@media screen and (min-width: 425px) {
+    .button-1 {
+        width: 200px;
+    }
+    .bt {
+        justify-content: flex-end;
+    }
+    .selectionContent {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+    .formContent {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 200px;
+        margin-top: 0;
+    }
+    .buttonContent {
+        width: 250px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .custom-select {
+        width: 30vw;
+        max-width: 200px;
+    }
+    select option:disabled {
+        color: hsla(0, 70%, 69%, 1);
+    }
+    .text-mb-40 {
+        margin-bottom: 0px;
+    }
+}
+
+@media screen and (min-width: 425px) and (max-width: 900px) {
+    .search-field-container {
+        width: 87%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .content {
+        margin-top: -420px;
+    }
+    .search-field-container {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .text::after {
+        content: 'Reformes';
+    }
+}

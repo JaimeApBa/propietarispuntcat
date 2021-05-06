@@ -6,6 +6,7 @@ export class USER {
         public surname?: string,
         public email?: string,
         public phone?: string,
-        public role?: string
+        public role?: string,
+        public admin?: boolean
     ) { }
 }

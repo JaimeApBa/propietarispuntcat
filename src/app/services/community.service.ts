@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { URL_SERVICES, URL_GEOCODING } from '../config/config';
-import { catchError, map } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import { USER } from '../models/user.model';
+import { Injectable } from '@angular/core';
+import { URL_SERVICES } from '../config/config';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommunityService {
 
-  message: string;
-  currentUser: USER;
+  isAdmin: boolean;
+  userRole: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,72 +18,56 @@ export class CommunityService {
   };
 
   constructor(
-    public http: HttpClient
+    private http: HttpClient
   ) { }
 
   // ================================
-  // Get your communities
+  // Get users in your community
   // ================================
 
-  getCommunities(userid): any {
-    const url = URL_SERVICES + '/communities/' + userid;
+  getUsersCommunity(community): any {
+    const url = URL_SERVICES + '/joinCommunity/' + community;
 
-    return this.http.get(url, this.httpOptions);
-  }
-
-  // ================================
-  // Register new communities
-  // ================================
-
-  // get the adress of the community searched in the community search bar
-  getSearchAddress(address): any {
-    const userid = JSON.parse(localStorage.getItem('user')).id;
-    const url = URL_SERVICES + '/community/' + address + '/' + userid;
-    return this.http.get(url, this.httpOptions);
-  }
-
-  // get the match adresses in the Google API Geocoding to get lat and long attributes
-  getInfoAdress(adress): any {
-    const url = URL_GEOCODING + adress;
-
-    return this.http.get(url).pipe(
+    return this.http.get(url, this.httpOptions).pipe(
       map((resp: any) => {
-        if (adress.length >= 5 && resp.status !== 'ZERO_RESULTS') {
-          return resp;
-        }
+
+        resp.response.forEach(element => {
+          // save the role of the current user in localStorage
+          if (JSON.parse(localStorage.getItem('user')).id  === element.id) {
+            const user = JSON.parse(localStorage.getItem('user'));
+            user.role = element.role;
+            user.admin = element.admin;
+            localStorage.setItem('user', JSON.stringify(user));
+          }
+        });
+        return resp.response;
       })
     );
   }
 
-  // register the new community
-  registerCommunity(community): any {
-    const url = URL_SERVICES + '/community';
-
-    return this.http.post(url, community, this.httpOptions)
-        .pipe(
-          map((resp: any) => {
-            return this.message = resp.message;
-          }),
-          catchError((err: any) => {
-            return throwError(err);
-          })
-        );
+  // ====================================================
+  // Change the role of the user in your community
+  // ====================================================
+  changeRoleUserCommunity(id, cif, role): any {
+    const url = URL_SERVICES + '/changeRole/' + id + '/' + cif;
+    return this.http.put(url, role, this.httpOptions).pipe(
+      map((resp: any) => {
+        return resp;
+      })
+    );
   }
 
-  // join a community
-  joinCommunity(data): any {
-    // this.currentUser = JSON.parse(localStorage.getItem('user'));
-    const url = URL_SERVICES + '/joinCommunity';
-
-    return this.http.post(url, data, this.httpOptions)
-        .pipe(
-          map((resp: any) => {
-            return this.message = resp.message;
-          }),
-          catchError((err: any) => {
-            return throwError(err);
-          })
-        );
+  // ====================================================
+  // Remove user from the community
+  // ====================================================
+  removeUserCommunity(user, cif): any {
+    const url = URL_SERVICES + '/joinCommunity/' + user + '/' + cif;
+    console.log(url);
+    return this.http.delete(url, this.httpOptions).pipe(
+      map((error: any) => {
+        return error;
+      })
+    );
   }
 
 }

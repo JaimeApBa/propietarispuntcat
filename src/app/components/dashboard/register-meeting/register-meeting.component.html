@@ -1,0 +1,42 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="meetingForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Junta</p>
+
+            <!-- Description-->
+            <input type="text" formControlName="description" name="description" placeholder="Descripció" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                <p *ngIf="f.description.errors.required">La descripció és obligatòria</p>
+            </div>
+
+            <!-- date-->
+            <input type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="date" placeholder="Data" [ngClass]="{ 'is-invalid': submitted && f.date.errors }">
+            <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                <p *ngIf="f.date.errors.required">La data és obligatòria</p>
+            </div>
+
+            <!-- Hora-->
+            <input type="text" (focus)="changeTypeFocusTime($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="time" placeholder="Hora" [ngClass]="{ 'is-invalid': submitted && availableTime && f.time.errors }">
+            <div *ngIf="submitted && availableTime && f.time.errors" class="invalid-feedback">
+                <p *ngIf="f.time.errors.required">L'hora és obligatòria</p>
+            </div>
+
+            <!-- Lloc-->
+            <input type="text" formControlName="place" name="place" placeholder="Lloc" [ngClass]="{ 'is-invalid': submitted && f.place.errors }">
+            <div *ngIf="submitted && f.place.errors" class="invalid-feedback">
+                <p *ngIf="f.place.errors.required">El lloc és obligatòri</p>
+            </div>
+
+
+            <p *ngIf="message !== null" class="valid-submit"> {{message}}</p>
+            <p *ngIf="errorMessage !== null || errorMessage !== ''" class="invalid-feedback"> {{errorMessage}}</p>
+            <button class="button-1">Registrar</button>
+            <p class="center"><a [routerLink]="['/meetings', cif]" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

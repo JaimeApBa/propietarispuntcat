@@ -1,0 +1,76 @@
+<!--Adding the background, header, and menu-->
+<div class="bg-gray"></div>
+<app-header></app-header>
+<app-menu-community></app-menu-community>
+
+<!--Adding the content -->
+<section class="content" id="main">
+    <div class="content-dashboard center">
+        <div class="contain">
+
+            <!--show data of the provider-->
+            <div class="containWrap center">
+                <p *ngIf='provider !== undefined' class="text text-mb-40 red-underline">{{provider.name}}</p>
+                <div *ngIf="provider !== undefined" class="itemsWrap column">
+                    <div class="itemContainWrap">
+                        <div class="itemContain item"><small>CIF</small>
+                            <p>{{provider.cif}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Ofici</small>
+                            <p>{{provider.profession}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Correu Electrònic</small>
+                            <p>{{provider.email}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Adreça</small>
+                            <p>{{provider.address}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Codi Postal</small>
+                            <p>{{provider.postalcode}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Ciutat</small>
+                            <p>{{provider.city}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <p class="text text-mb-40 red-underline">Treballs</p>
+
+            <!--show data of the refurbishments-->
+            <div *ngIf="refurbishments === undefined || refurbishments.length === 0" class="itemContainWrap text-format">
+                <p>Aquest proveïdor no té treballs en aquesta comunitat</p>
+            </div>
+            <div class="containWrap center">
+                <div *ngIf="refurbishments !== undefined && refurbishments.length !==0" class="itemsWrap column">
+                    <div *ngFor="let refurbishment of refurbishments" class="itemContainWrap">
+                        <div class="itemContain item"><small>Descripció</small>
+                            <p>{{refurbishment.description}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Estat</small>
+                            <p>{{refurbishment.workState}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Pressupost</small>
+                            <p *ngIf="refurbishment.budget"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(refurbishment.budget, refurbishment.idBudget)"></i></p>
+                            <p *ngIf="!refurbishment.budget">-</p>
+                        </div>
+                        <div class="itemContain item"><small>Factura</small>
+                            <p *ngIf="refurbishment.invoice"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(refurbishment.invoice, refurbishment.idInvoice)"></i></p>
+                            <p *ngIf="!refurbishment.invoice">-</p>
+                        </div>
+
+                    </div>
+                    <div class="buttonsWrap" *ngIf="isAdmin || (userRole !=='Propietari' && userRole !=='Proveidor')">
+                        <button class="button-3 bt-blue" disabled>Eliminar</button>
+                        <button class="button-3 bt-red" disabled>Editar</button>
+                    </div>
+                </div>
+            </div>
+            <p class="red-underline"></p>
+            <p class="center"><a [routerLink]="['/providers', cifCommunity]" class="text-link">Tornar</a></p>
+
+        </div>
+    </div>
+
+</section>

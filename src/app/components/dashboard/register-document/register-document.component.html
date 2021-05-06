@@ -1,0 +1,149 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="documentsForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Document</p>
+            <!-- select document type-->
+            <select formControlName="documentType" class="custom-select" (change)="this.initForm(this.documentsForm.controls['documentType'].value)" #documentSelect>
+                <option selected>Tipus document</option>
+                <option disabled>_________________</option>
+                <option *ngFor="let document of documentsType">{{document}}</option>    
+            </select>
+            <div *ngIf="submitted && f.documentType.errors" class="invalid-feedback">
+                <p *ngIf="f.documentType.errors.required">És obligatori seleccionar un tipus de document</p>
+            </div>
+            <!-- select refurbishment if necessary-->
+            <div class="mt-20" *ngIf="this.documentsForm.get('documentType').value === 'Pressupostos' || this.documentsForm.get('documentType').value === 'Factures'">
+                <select formControlName="refurbishment" class="custom-select" #inputRefurbishment (change)="this.addDataRefurbishment(this.documentsForm.controls['refurbishment'].value)">
+                    <option selected>Reforma</option>
+                    <option disabled>__________________</option>
+                    <option *ngFor="let refurbishment of refurbishments">{{refurbishment.description}}</option>    
+                </select>
+                <div *ngIf="submitted && f.refurbishment.errors" class="invalid-feedback">
+                    <p *ngIf="f.refurbishment.errors.required">És obligatori seleccionar un tipus de document</p>
+                </div>
+            </div>
+
+            <!-- select boardminute for statements, if necessary-->
+            <div class="mt-20" *ngIf="this.documentsForm.get('documentType').value === 'Comunicats'">
+                <select formControlName="boardMinute" class="custom-select" #selectBoardMinute (change)="this.getBoardMinute(this.documentsForm.controls['boardMinute'].value)">
+                    <option selected value>Acta</option>
+                    <option disabled>__________________</option>
+                    <option *ngFor="let boardMinute of boardMinutes">{{boardMinute}}</option>
+                    <option>Cap</option>
+                </select>
+            </div>
+
+            <!-- select meeting for boardMinute-->
+            <div class="mt-20" *ngIf="this.documentsForm.get('documentType').value === 'Actes'">
+                <select formControlName="meeting" class="custom-select" #selectMeeting (change)="this.getMeeting($event.target.value)">
+                    <option selected value>Selecciona una Junta</option>
+                    <option disabled>__________________</option>
+                    <option *ngFor="let meeting of meetings">{{meeting.date | date: 'dd-MM-y'}} | {{ meeting.description}}</option>
+                </select>
+            </div>
+
+            <!-- Document description-->
+            <input type="text" formControlName="description" placeholder="Descripció" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+            <div *ngIf="submitted && f.description.errors && f.description.errors !== null" class="invalid-feedback">
+                <p *ngIf="f.description.errors.required">La descripció és obligatòria</p>
+            </div>
+
+            <!-- provider-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Contractes' || this.documentsForm.get('documentType').value === 'Pressupostos' || this.documentsForm.get('documentType').value === 'Factures'" type="text" formControlName="provider" id="provider"
+                name="provider" placeholder="Proveïdor" #input (keyup)="getProvider(input.value)" [ngClass]="{ 'is-invalid': submitted && f.provider.errors }">
+            <div *ngIf="searchedProvider !== undefined">
+                <div *ngFor="let provider of searchedProvider | slice:0:1" class="search-field" (click)="getSearchedProvider(provider)" [ngClass]="{'hide': hide===true}">
+                    <p>{{provider.name}}</p>
+                </div>
+            </div>
+            <div *ngIf="(this.documentsForm.get('documentType').value === 'Contractes' || this.documentsForm.get('documentType').value === 'Pressupostos' || this.documentsForm.get('documentType').value === 'Factures') && (submitted && f.provider.errors)" class="invalid-feedback">
+                <p *ngIf="f.provider.errors.required">El proveïdor és obligatori</p>
+            </div>
+
+            <!-- num of contract-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Contractes'" type="text" formControlName="numContract" placeholder="Número de Contracte" [ngClass]="{ 'is-invalid': submitted && f.numContract.errors }">
+            <div *ngIf="(this.documentsForm.get('documentType').value === 'Contractes') && (submitted && f.numContract.errors)" class="invalid-feedback">
+                <p *ngIf="f.numContract.errors.required">El número de contracte és obligatori</p>
+            </div>
+
+            <!-- num of budget-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Pressupostos'" type="text" formControlName="numBudget" placeholder="Número de Pressupost" [ngClass]="{ 'is-invalid': submitted && f.numBudget.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Pressupostos' && submitted && f.numBudget.errors" class="invalid-feedback">
+                <p *ngIf="f.numBudget.errors.required">El número de pressupost és obligatori</p>
+            </div>
+
+            <!-- num of invoice-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Factures'" type="text" formControlName="numInvoice" id="numInvoice" name="numInvoice" placeholder="Número de Factura" [ngClass]="{ 'is-invalid': submitted && f.numInvoice.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Factures' && submitted && f.numInvoice.errors" class="invalid-feedback">
+                <p *ngIf="f.numInvoice.errors.required">El número de factura és obligatori</p>
+            </div>
+
+            <!-- init date of contract-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Contractes'" type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="initDate" placeholder="Data inici" [ngClass]="{ 'is-invalid': submitted && f.initDate.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Contractes' && submitted && f.initDate.errors" class="invalid-feedback">
+                <p *ngIf="f.initDate.errors.required">La data d'inici és obligatòria</p>
+            </div>
+
+            <!-- end date of contract-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Contractes'" type="text" (focus)="changeTypeFocus($event.target); setMinAttibute($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="endDate" placeholder="Data Venciment"
+                [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Contractes' && submitted && f.endDate.errors" class="invalid-feedback">
+                <p *ngIf="f.endDate.errors.required">La data de venciment és obligatòria</p>
+            </div>
+
+            <!-- date of budget-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Pressupostos'" type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="dateBudget" placeholder="Data Pressupost" [ngClass]="{ 'is-invalid': submitted && f.dateBudget.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Pressupostos' && submitted && f.dateBudget.errors" class="invalid-feedback">
+                <p *ngIf="f.dateBudget.errors.required">La data del pressupost és obligatòria</p>
+            </div>
+
+            <!-- date of invoice-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Factures'" type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="dateInvoice" placeholder="Data Factura" [ngClass]="{ 'is-invalid': submitted && f.dateInvoice.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Factures' && submitted && f.dateInvoice.errors" class="invalid-feedback">
+                <p *ngIf="f.dateInvoice.errors.required">La data de la factura és obligatòria</p>
+            </div>
+
+            <!-- date of boardminute-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Actes'" type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="dateMinute" placeholder="Data Acta" [ngClass]="{ 'is-invalid': submitted && f.dateMinute.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Actes' && submitted && f.dateMinute.errors" class="invalid-feedback">
+                <p *ngIf="f.dateMinute.errors.required">La data de l'acta és obligatòria</p>
+            </div>
+
+            <!-- date of economic summary-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Resums Econòmics'" type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="dateSummary" placeholder="Data Document" [ngClass]="{ 'is-invalid': submitted && f.dateSummary.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Resums Econòmics' && submitted && f.dateSummary.errors" class="invalid-feedback">
+                <p *ngIf="f.dateSummary.errors.required">La data del document és obligatòria</p>
+            </div>
+
+            <!-- date of statement-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Comunicats'" type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="dateStatement" placeholder="Data Comunicat" [ngClass]="{ 'is-invalid': submitted && f.dateStatement.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Comunicats' && submitted && f.dateStatement.errors" class="invalid-feedback">
+                <p *ngIf="f.dateStatement.errors.required">La data del document és obligatòria</p>
+            </div>
+            <!-- date of other documents-->
+            <input *ngIf="this.documentsForm.get('documentType').value === 'Altres documents'" type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="dateDocs" placeholder="Data Document" [ngClass]="{ 'is-invalid': submitted && f.dateDocs.errors }">
+            <div *ngIf="this.documentsForm.get('documentType').value === 'Altres documents' && submitted && f.dateDocs.errors" class="invalid-feedback">
+                <p *ngIf="f.dateDocs.errors.required">La data del document és obligatòri</p>
+            </div>
+
+            <!-- Document comments-->
+            <textarea formControlName="comments" id="comments" name="comments" placeholder="Comentaris" [ngClass]="{ 'is-invalid': submitted && f.comments.errors }"></textarea>
+
+            <p *ngIf="message !== null" class="valid-submit"> {{message}}</p>
+            <p *ngIf="errorMessage !== null || errorMessage !== ''" class="invalid-feedback"> {{errorMessage}}</p>
+            <div>
+                <span class="button-2 btn-file">Afegir document
+                <input type="file" name="inputfile" (change)="feedbackButton($event.target.files)"></span>
+                <p class="text center" *ngIf="labelFile && labelFile !== ''">{{labelFile}}</p>
+            </div>
+
+            <button class="button-1">Registrar</button>
+            <p class="center"><a [routerLink]="['/documents', cif]" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

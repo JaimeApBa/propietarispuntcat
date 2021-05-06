@@ -1,0 +1,23 @@
+.button-3 {
+    margin-left: 10px;
+}
+
+.containWrap {
+    cursor: pointer;
+}
+
+@media screen and (min-width: 425px) {
+    .text-mb-60 {
+        margin-bottom: 60px;
+        margin-top: -5px;
+    }
+    .text {
+        margin-bottom: 60px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .text::after {
+        content: 'Perfil Usuari';
+    }
+}

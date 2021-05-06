@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { URL_SERVICES } from '../config/config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { USER } from '../models/user.model';
@@ -16,6 +16,11 @@ export class UserService {
   userStorage: any;
   response: any;
   currentUser: USER;
+  httpOptions = {
+    headers: new HttpHeaders({
+      authorization: localStorage.getItem('token')
+    })
+  };
 
   constructor(
     public router: Router,
@@ -31,7 +36,7 @@ export class UserService {
 
   }
   // load the data session in the localstorage
-  loadUserStorage(): any {
+  loadUserStorage(): void {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.userStorage = JSON.parse(localStorage.getItem('user'));
@@ -42,7 +47,7 @@ export class UserService {
     }
   }
   // set the current data session in localStorage
-  setUserStorage(token: string, user: USER): any {
+  setUserStorage(token: string, user: USER): void {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
   }
@@ -54,18 +59,16 @@ export class UserService {
       surname: user.fullname,
       email: user.email,
       phone: user.phone || '',
-      role: user.role || ''
+      role: user.role || '',
+      admin: user.isAdmin || false
     };
   }
 
   // logout
-  logout(): any {
+  logout(): void {
     this.userStorage = null;
     this.token = '';
     localStorage.clear();
-
-
-    this.router.navigate(['/login']);
   }
 
   // login
@@ -102,5 +105,57 @@ signUp(user): any {
     })
   );
 }
+
+// get current user
+getUser(id): any {
+  const url = URL_SERVICES + '/user/' + id;
+
+  return this.http.get(url, this.httpOptions)
+  .pipe(
+    map((resp: any) => {
+      return resp.results;
+    }),
+    catchError((err: any) => {
+        return throwError(err);
+    })
+  );
+}
+
+  // ============================================
+  // Update the data of a user // No password
+  // ============================================
+
+  updateUser(user, id): any {
+    const url = URL_SERVICES + '/user/' + id;
+
+    return this.http.put(url, user, this.httpOptions)
+        .pipe(
+          map((resp: any) => {
+            return resp.message;
+          }),
+          catchError((err: any) => {
+            return throwError(err);
+          })
+        );
+  }
+
+  // ============================================
+  // Update password  of a user
+  // ============================================
+
+  updatePasswordUser(user): any {
+    console.log(user.email);
+    const url = URL_SERVICES + '/password';
+
+    return this.http.put(url, user)
+        .pipe(
+          map((resp: any) => {
+            return resp.message;
+          }),
+          catchError((err: any) => {
+            return throwError(err);
+          })
+        );
+  }
 
 }

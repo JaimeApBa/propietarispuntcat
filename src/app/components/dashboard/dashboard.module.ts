@@ -1,14 +1,27 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from '../shared/shared.module';
 // Components
 import { DashboardComponent } from './dashboard.component';
-import { CommunityComponent } from './community/community.component';
-import { MenuComponent } from './menu/menu.component';
-import { RegisterCommunityComponent } from './register-community/register-community.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { JoinCommunityComponent } from './join-community/join-community.component';
+import { CommunityComponent } from './community/community.component';
+import { MenuCommunityComponent } from './menu-community/menu-community.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ProvidersComponent } from './providers/providers.component';
+import { RegisterProviderComponent } from './register-provider/register-provider.component';
+import { DocumentsComponent } from './documents/documents.component';
+import { RegisterDocumentComponent } from './register-document/register-document.component';
+import { RegisterProfessionComponent } from './register-profession/register-profession.component';
+import { RefurbishmentComponent } from './refurbishment/refurbishment.component';
+import { RegisterRefurbishmentComponent } from './register-refurbishment/register-refurbishment.component';
+import { ProviderComponent } from './provider/provider.component';
+import { AdvertisementComponent } from './advertisement/advertisement.component';
+import { RegisterAdvertisementComponent } from './register-advertisement/register-advertisement.component';
+import { MeetingsComponent } from './meetings/meetings.component';
+import { RegisterMeetingComponent } from './register-meeting/register-meeting.component';
+import { PhonesComponent } from './phones/phones.component';
+import { RegisterPhoneComponent } from './register-phone/register-phone.component';
 
 
 
@@ -17,16 +30,30 @@ import { JoinCommunityComponent } from './join-community/join-community.componen
   declarations: [
     DashboardComponent,
     CommunityComponent,
-    MenuComponent,
-    RegisterCommunityComponent,
-    JoinCommunityComponent
+    MenuCommunityComponent,
+    ProvidersComponent,
+    RegisterProviderComponent,
+    DocumentsComponent,
+    RegisterDocumentComponent,
+    RegisterProfessionComponent,
+    RefurbishmentComponent,
+    RegisterRefurbishmentComponent,
+    ProviderComponent,
+    AdvertisementComponent,
+    RegisterAdvertisementComponent,
+    MeetingsComponent,
+    RegisterMeetingComponent,
+    PhonesComponent,
+    RegisterPhoneComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     DashboardRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    HttpClientModule
+  ],
+  providers: [ { provide: LOCALE_ID, useValue: 'ca' } ]
 })
 export class DashboardModule { }

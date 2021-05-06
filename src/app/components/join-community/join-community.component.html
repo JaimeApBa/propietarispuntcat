@@ -1,0 +1,36 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="joinComunityForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Envia la teva sol.licitud d'accés</p>
+            <label for="isAdmin" class="ft-size-16">Éts Administrador Finques?
+                <input type="checkbox" name="admin" (change)="isAdmin()">
+            </label>
+            <input type="text" formControlName="name" id="name" name="name" placeholder="Alias Comunitat" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <p *ngIf="f.name.errors.required">El nom és obligatori</p>
+            </div>
+
+            <input *ngIf="!isEstateAdministrator" type="text" formControlName="floor" id="floor" name="floor" placeholder="Pis" [ngClass]="{ 'is-invalid': !isEstateAdministrator && submitted && f.floor.errors }">
+            <div *ngIf="!isEstateAdministrator && submitted && f.floor.errors" class="invalid-feedback">
+                <p *ngIf="f.floor.errors.required">El pis és obligatori</p>
+            </div>
+
+            <input *ngIf="!isEstateAdministrator" type="text" formControlName="door" id="door" name="door" placeholder="Porta" [ngClass]="{ 'is-invalid': !isEstateAdministrator && submitted && f.door.errors }">
+            <div *ngIf="!isEstateAdministrator && submitted && f.door.errors" class="invalid-feedback">
+                <p *ngIf="f.door.errors.required">La porta és obligatòria</p>
+            </div>
+
+            <input *ngIf="!isEstateAdministrator" type="text" formControlName="side" id="side" name="side" placeholder="Escala">
+
+            <p *ngIf="message !== null || message !== '' " class="valid-submit"> {{message}}</p>
+            <p *ngIf="errorMessage !== null || message !== ''" class="invalid-feedback"> {{errorMessage}}</p>
+            <button class="button-1">Enviar</button>
+            <p class="center"><a routerLink="/home" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

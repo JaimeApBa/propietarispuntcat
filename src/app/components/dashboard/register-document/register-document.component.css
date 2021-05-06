@@ -1,0 +1,84 @@
+.card {
+    margin-bottom: 50px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.search-field {
+    font-size: 14px;
+    border: 2px solid hsla(0, 0%, 51%, 1);
+    justify-content: center;
+    width: 85vw;
+    height: 50px;
+    background-color: hsl(0, 0%, 96%);
+    position: absolute;
+    margin-top: -20px;
+    cursor: pointer;
+    text-indent: 10px;
+}
+
+.custom-select {
+    height: 40px;
+    border: 1px solid hsla(0, 70%, 69%, 1);
+    color: hsla(0, 70%, 69%, 1);
+    background-color: hsla(0, 70%, 69%, 0.1);
+    text-indent: 3px;
+    width: 100%;
+    font-size: 16px;
+}
+
+input[type='date'] {
+    color: hsla(191, 71%, 40%, 0.7);
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    text-align: center;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0;
+    display: block;
+}
+
+textarea {
+    display: block;
+    width: 99%;
+    height: 70px;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: hsla(191, 71%, 40%, 0.5);
+    background-color: hsla(191, 71%, 40%, 0.1);
+    color: hsla(191, 71%, 40%, 1);
+    text-indent: 10px;
+    margin: 20px 0;
+    font-size: 16px;
+    padding-top: 10px;
+}
+
+.text {
+    color: hsla(191, 71%, 40%, 1);
+    font-size: 16px;
+    border: 1px solid hsla(191, 71%, 40%, 0.5);
+    border-radius: 10px;
+    background-color: hsla(191, 71%, 40%, 0.1);
+    height: 30px;
+}
+
+select option:disabled {
+    color: hsla(0, 70%, 69%, 1);
+}
+
+@media screen and (min-width: 425px) {
+    .search-field {
+        width: 400px;
+    }
+}

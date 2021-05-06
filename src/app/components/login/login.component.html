@@ -9,8 +9,8 @@
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                 <input type="email" formControlName="email" id="email" name="email" placeholder="Introdueix el correu electrònic">
                 <input type="password" formControlName="password" id="password" name="password" placeholder="Contrasenya">
-                <p><a routerLink="" class="text-link ft-size-16">Has oblidat la contrasenya?</a> </p>
-                <p *ngIf="errorMessage !== '' " class="invalid-feedback">{{errorMessage}}</p>
+                <p><a [routerLink]="['/registerUser', {password: true}]" class="text-link ft-size-16">Has oblidat la contrasenya?</a> </p>
+                <p *ngIf="errorMessage !== ''" class="invalid-feedback">{{errorMessage}}</p>
                 <button class="button-1">Entrar</button>
                 <p class="blue-underline ft-size-16">No estas registra't encara? <br>
                     <a routerLink="/registerUser" class="text-link">Crea un nou usuari</a></p>

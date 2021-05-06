@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(this.profileForm.value)
                     .subscribe( resp => {
-                      this.router.navigate(['/dashboard']); },
+                      this.router.navigate(['/home']);
+                    },
                       error => {
                         // console.log('err: ' + error);
                         this.errorMessage = error;
