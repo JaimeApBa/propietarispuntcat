@@ -82,8 +82,11 @@ export class PhonesComponent implements OnInit {
   }
 
   removePhone(phone): void {
-    this.phoneService.removePhone(this.cif, phone.id).subscribe(
-      resp => this.getPhones()
+    console.log(phone);
+    this.phoneService.removePhone(phone.id).subscribe(
+      resp => {
+        this.getPhones();
+      }
     );
 
   }

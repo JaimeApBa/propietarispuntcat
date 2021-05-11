@@ -90,7 +90,6 @@ export class HomeCommunityComponent implements OnInit {
         if (resp.response !== undefined && resp.response.length > 0) {
           this.showList = true;
           this.requestAccessList = resp.response;
-          console.log(this.requestAccessList);
         } else { this.showList = false; }
       },
       error => {

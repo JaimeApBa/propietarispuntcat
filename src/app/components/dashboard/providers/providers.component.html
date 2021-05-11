@@ -38,7 +38,7 @@
                     </form>
                 </div>
                 <!--button register-->
-                <div class="buttonContent" *ngIf="isAdmin  || (userRole !=='Propietari' && userRole !=='Proveidor')">
+                <div class="buttonContent" *ngIf="isAdmin  || (userRole !=='Propietari' && userRole !=='Proveidor')" [ngClass]="{ 'text-mb-40': !providersList || providersList.length === 0 }">
                     <div class="bt center">
                         <button class="button-1" [routerLink]="[ '/registerProvider', cif]">+</button>
                     </div>

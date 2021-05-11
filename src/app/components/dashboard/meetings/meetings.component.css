@@ -75,6 +75,11 @@ select option:disabled {
     color: hsla(0, 70%, 69%, 1);
 }
 
+.fa-file-pdf-o:hover {
+    color: hsla(0, 70%, 69%, 1);
+    cursor: pointer;
+}
+
 .formContent {
     margin-top: 25px;
 }

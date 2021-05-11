@@ -6,13 +6,6 @@
     <div class="card center">
         <form [formGroup]="advertisementForm" (ngSubmit)="onSubmit()">
             <p class="red-underline">Dades Anunci</p>
-            <!-- select the statement, if exists-->
-            <select formControlName="statement" name="statement" class="custom-select" #selectStatement>
-                <option selected>Comunicats</option>
-                <option disabled>_________________________________</option>
-                <option *ngFor="let statement of statements">{{statement.description}}</option> 
-                <option>Cap</option>
-            </select>
 
             <!-- Name-->
             <input type="text" formControlName="name" name="name" placeholder="Nom" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
@@ -20,7 +13,7 @@
                 <p *ngIf="f.name.errors.required">El nom és obligatòri</p>
             </div>
             <!-- Date advertisement-->
-            <input type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="date" placeholder="Data anunci" [ngClass]="{ 'is-invalid': submitted && f.date.errors }">
+            <input type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="date" placeholder="Data anunci (yyyy-mm-dd)" [ngClass]="{ 'is-invalid': submitted && f.date.errors }">
             <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
                 <p *ngIf="f.date.errors.required">La data és obligatòria</p>
             </div>

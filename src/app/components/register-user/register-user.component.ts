@@ -34,7 +34,7 @@ export class RegisterUserComponent implements OnInit {
       name: ['', [Validators.required]],
       fullname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      phone: ['', [Validators.pattern('[0-9]{9}')]],
+      phone: [null, [Validators.pattern('[0-9]{9}')]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
     }, {
@@ -56,11 +56,15 @@ export class RegisterUserComponent implements OnInit {
     const phone = this.route.snapshot.paramMap.get('phone');
     const password = this.route.snapshot.paramMap.get('password');
 
-    if (name !== null && fullname !== null && email !== null && phone !== null) {
+    if (name !== null && fullname !== null && email !== null) {
       this.userForm.controls.name.setValue(name);
       this.userForm.controls.fullname.setValue(fullname);
       this.userForm.controls.email.setValue(email);
-      this.userForm.controls.phone.setValue(phone);
+      if (phone !== 'null' && phone !== null) {
+        this.userForm.controls.phone.setValue(phone);
+      } else {
+        this.userForm.controls.phone.setValue('');
+      }
 
       this.isUpdateUser = true;
     }

@@ -144,7 +144,6 @@ getUser(id): any {
   // ============================================
 
   updatePasswordUser(user): any {
-    console.log(user.email);
     const url = URL_SERVICES + '/password';
 
     return this.http.put(url, user)

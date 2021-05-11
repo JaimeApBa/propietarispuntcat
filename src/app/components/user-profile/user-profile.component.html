@@ -35,8 +35,11 @@
             </div>
 
             <!--your communities-->
-            <p class="text-mb-60 red-underline">Les teves comunitats</p>
+            <p class="mt-top-5 red-underline" [ngClass]="{'text-mb-60' : communityList.length !== 0}">Les teves comunitats</p>
             <div class="containWrap center">
+                <div *ngIf="communityList.length === 0" class="itemContainWrap text-format">
+                    <p>No pertanys a cap comunitat</p>
+                </div>
                 <div *ngFor="let community of communityList" class="itemsWrap column" [routerLink]="['/community', community.cif]">
                     <div class="itemContainWrap">
                         <div class="itemContain item"><small>Nom</small>

@@ -56,7 +56,6 @@ export class RegisterDocumentComponent implements OnInit {
       filename: [null],
       documentType: ['', Validators.required]
     });
-
   }
 
   // depending the option of the document type, add fields to the form
@@ -93,8 +92,9 @@ export class RegisterDocumentComponent implements OnInit {
         this.addControlForm(data);
         break;
       case 'Comunicats':
-        data = ['dateStatement', 'user', 'boardMinute'];
+        data = ['dateStatement', 'user', 'meeting'];
         this.addControlForm(data);
+        this.getMeetings();
         this.documentsForm.controls.user.setValue(JSON.parse(localStorage.getItem('user')).id);
         break;
       case 'Altres documents':
@@ -157,8 +157,10 @@ export class RegisterDocumentComponent implements OnInit {
 
   // show the filename uplodaded
   feedbackButton(file): void {
-    this.labelFile = file[0].name;
-    this.file = file[0];
+    file.preventDefault();
+    this.labelFile = file.target.files[0].name;
+
+    this.file = file.target.files[0];
     this.documentsForm.patchValue({
       filename: this.file
     });
@@ -183,12 +185,18 @@ export class RegisterDocumentComponent implements OnInit {
   }
   // For boardMinute documents: get meeting selected
   getMeeting(input): void {
+    this.selectMeeting.nativeElement.options[0].selected = true; // the html select, change to the selected option by default
     const date = input.substring(0, input.indexOf(' '));
     const value = this.meetings.filter(r => formatDate(r.date, 'dd-MM-yyyy', 'ca') === date)[0];
-
     this.documentsForm.controls.meeting.setValue(value.id);
     this.documentsForm.controls.description.setValue(value.description);
-    this.documentsForm.controls.dateMinute.setValue(formatDate(value.date, 'yyyy-MM-dd', 'ca'));
+
+    // if the form has dateMinute control, set the value
+    if (this.documentsForm.controls.dateMinute !== undefined) {
+      this.documentsForm.controls.dateMinute.setValue(formatDate(value.date, 'yyyy-MM-dd', 'ca'));
+    } else if (this.documentsForm.controls.dateStatement !== undefined) {
+      this.documentsForm.controls.dateStatement.setValue(formatDate(value.date, 'yyyy-MM-dd', 'ca'));
+    }
   }
 
   // add the refurbishment data to the form when it's nececessary
@@ -204,9 +212,9 @@ export class RegisterDocumentComponent implements OnInit {
 
   }
 
-  // For stament documents: get boardMinute selected
-  getBoardMinute(input): void {
-    console.log(input);
+   // For stament documents: get boardMinute selected
+  getSelectedBoardMinute(input): void {
+
     if (input !== 'Cap') {
       this.documentsForm.controls.boardMinute.setValue(input);
     } else {
@@ -257,6 +265,7 @@ export class RegisterDocumentComponent implements OnInit {
     this.documentsForm.reset();
     this.labelFile = '';
     this.submitted = false;
+    this.file = null;
 
     Object.keys(this.documentsForm.controls).forEach(element => {
       if (element !== 'description' && element !== 'comments' && element !== 'filename' && element !== 'documentType') {

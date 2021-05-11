@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentsService } from 'src/app/services/documents.service';
@@ -17,7 +17,6 @@ export class RegisterAdvertisementComponent implements OnInit {
   message: string;
   errorMessage: string;
   hide = false;
-  @ViewChild('selectStatement') selectStatement;
   isUpdate: boolean;
 
   constructor(
@@ -42,17 +41,8 @@ export class RegisterAdvertisementComponent implements OnInit {
       community: [''],
       statement: [null]
     });
-    this.getStatements();
-    this.getDataParams();
-  }
 
-  getStatements(): void {
-    const documentType = 'Comunicats';
-    this.documentsService.getDocumentsList(this.cif, documentType).subscribe(
-      resp => {
-        this.statements = resp.results;
-      }
-    );
+    this.getDataParams();
   }
 
   // getter for easy access to form fields
@@ -71,13 +61,12 @@ export class RegisterAdvertisementComponent implements OnInit {
     const name = this.route.snapshot.paramMap.get('name');
     const description = this.route.snapshot.paramMap.get('description');
     const date = new Date(this.route.snapshot.paramMap.get('date'));
-    const statement = this.route.snapshot.paramMap.get('statement');
 
     if (name !== null && description !== null && date !== null) {
       this.advertisementForm.controls.name.setValue(name);
       this.advertisementForm.controls.description.setValue(description);
       this.advertisementForm.controls.date.setValue(date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate());
-      this.advertisementForm.controls.statement.setValue(statement);
+
       this.isUpdate = true;
     }
   }
@@ -98,8 +87,7 @@ export class RegisterAdvertisementComponent implements OnInit {
         resp => {
           this.errorMessage = '';
           this.message = resp;
-          // the html select change to the selected option by default
-          this.selectStatement.nativeElement.options[0].selected = true;
+
         },
         error => {
           this.message = '';
@@ -112,8 +100,7 @@ export class RegisterAdvertisementComponent implements OnInit {
         resp => {
           this.errorMessage = '';
           this.message = resp.message;
-          // the html select change to the selected option by default
-          this.selectStatement.nativeElement.options[0].selected = true;
+
         },
         error => {
           this.message = '';

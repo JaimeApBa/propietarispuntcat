@@ -58,7 +58,6 @@ escape(event): void {
     this.errorMessage = '';
     this.documentsService.getDocumentsList(this.cif, this.documentType).subscribe(
       (resp: any) => {
-        // console.log(resp.results);
         this.documents = resp.results;
       }
     );
@@ -72,7 +71,6 @@ escape(event): void {
     this.documentsService.getDocumentsList(this.cif, event).subscribe(
       (resp: any) => {
         this.documents = resp.results;
-        console.log(resp.results);
       }
     );
   }

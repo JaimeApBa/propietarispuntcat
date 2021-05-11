@@ -86,6 +86,7 @@ export class RegisterRefurbishmentComponent implements OnInit {
     if (this.refurbishmentForm.invalid) { return; }
     // get the cif of the provider selected
     const provider = this.providers.filter( r => r.name === this.refurbishmentForm.value.provider).map(r => r.cif);
+
     this.refurbishmentForm.controls.provider.setValue(provider[0]);
     // get the id of the workstate selected
     const workState = this.workStates.filter( r => r.name === this.refurbishmentForm.value.workState).map(r => r.id);

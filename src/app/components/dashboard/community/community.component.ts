@@ -28,7 +28,8 @@ export class CommunityComponent implements OnInit {
   admins: any;
   admin: any;
   @ViewChild('admin') adminOption;
-  @ViewChild('selectedOption') selectedOption;
+  @ViewChild('selectedPresident') selectedPresident;
+  @ViewChild('selectedSecretary') selectedSecretary;
 
   constructor(
     private route: ActivatedRoute,
@@ -74,8 +75,9 @@ export class CommunityComponent implements OnInit {
   getDataUsersCommunity(): void {
     this.communityService.getUsersCommunity(this.cif).subscribe(
       (resp: any) => {
-        this.userCommunityList = resp;
-        this.users = resp;
+        this.userCommunityList = resp.filter(r => !r.estateAdministrator);
+        this.users = resp.filter(r => !r.estateAdministrator);
+
         // initialize those objects every time the user make a change
         this.presidentCommunity = [];
         this.secretaryCommunity = [];
@@ -145,6 +147,8 @@ export class CommunityComponent implements OnInit {
           this.communityService.changeRoleUserCommunity(element.id, this.cif, role).subscribe(
             response => {
               this.getDataUsersCommunity();
+              this.selectedPresident.nativeElement.options[0].selected = true; // the html select change to the selected option by default
+              this.selectedSecretary.nativeElement.options[0].selected = true; // the html select change to the selected option by default
             }
           );
         }
@@ -163,6 +167,8 @@ export class CommunityComponent implements OnInit {
             this.communityService.changeRoleUserCommunity(element.id, this.cif, role).subscribe(
               response => {
                 this.getDataUsersCommunity();
+                this.selectedPresident.nativeElement.options[0].selected = true; // the html select change to the selected option by default
+                this.selectedSecretary.nativeElement.options[0].selected = true; // the html select change to the selected option by default
               }
               );
           }

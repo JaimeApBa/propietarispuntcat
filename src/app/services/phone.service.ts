@@ -79,8 +79,8 @@ export class PhoneService {
   // Remove phone from your community
   // ============================================
 
-  removePhone(cif, phone): any {
-    const url = URL_SERVICES + '/phone/' + cif + '/' + phone;
+  removePhone(id): any {
+    const url = URL_SERVICES + '/phone/' + id;
 
     return this.http.delete(url, this.httpOptions)
         .pipe(

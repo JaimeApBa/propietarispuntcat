@@ -6,9 +6,15 @@
     cursor: pointer;
 }
 
+.text-format {
+    text-indent: 10px;
+}
+
 @media screen and (min-width: 425px) {
     .text-mb-60 {
         margin-bottom: 60px;
+    }
+    .mt-top-5 {
         margin-top: -5px;
     }
     .text {

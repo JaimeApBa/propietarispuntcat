@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentsService } from 'src/app/services/documents.service';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { saveAs } from 'file-saver';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-meetings',
@@ -92,7 +91,6 @@ export class MeetingsComponent implements OnInit {
 
   // download File
   downloadFile(document, id): void {
-    console.log(document);
     this.documentsService.downloadFile(id).subscribe(
       resp => {
        const blob = new Blob([resp], {type: resp.type});

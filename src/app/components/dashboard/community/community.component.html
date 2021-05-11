@@ -59,8 +59,8 @@
                             <p>{{admin.address}}</p>
                         </div>
                         <div class="itemContain item"><small>Telèfon</small>
-                            <p *ngIf="presidentCommunity.phone">{{admin.phone}}</p>
-                            <p *ngIf="!presidentCommunity.phone">-</p>
+                            <p *ngIf="admin.phone">{{admin.phone}}</p>
+                            <p *ngIf="!admin.phone">-</p>
                         </div>
                         <div class="itemContain item"><small>Correu Electrònic</small>
                             <p *ngIf="admin.email">{{admin.email}}</p>
@@ -78,7 +78,7 @@
 
                 <form [formGroup]="presidentForm" (change)="onSubmit('President')" *ngIf="isAdmin  || userRole !=='Propietari' && userRole !=='Proveidor'">
 
-                    <select formControlName="userRole" name="president" id="president" class="custom-select">
+                    <select formControlName="userRole" name="president" id="president" class="custom-select" #selectedPresident>
                         <option selected value>President</option>
                         <option disabled>__________________</option>
                         <option *ngFor="let user of users">{{user.name}} {{user.fullname}} | {{user.floor}} - {{user.door}}, {{user.side}}</option>
@@ -119,7 +119,7 @@
                 <p class="red-underline" [ngClass]="{ 'text': isAdmin || userRole === 'Propietari' || userRole === 'Proveïdor' }" [ngClass]="{ 'text-mb-40': !isAdmin && userRole === 'Propietari' || userRole === 'Proveïdor' }">Secretari de la Comunitat</p>
                 <form [formGroup]="secretaryForm" (change)="onSubmit('Secretari')" *ngIf="isAdmin  || (userRole !=='Propietari' && userRole !=='Proveidor')">
 
-                    <select formControlName="userRole" name="secretary" id="secretary" class="custom-select">
+                    <select formControlName="userRole" name="secretary" id="secretary" class="custom-select" #selectedSecretary>
                         <label>Selecciona un secretari: </label>
                         <option selected value>Secretari</option>
                         <option disabled>________________</option>

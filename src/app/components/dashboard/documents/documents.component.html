@@ -103,9 +103,6 @@
                         <div *ngIf="documentType === 'Actes'" class="itemContain item"><small>Data</small>
                             <p>{{ doc.dateMinute | date: 'd-MM-y' }}</p>
                         </div>
-                        <div *ngIf="documentType === 'Actes'" class="itemContain item"><small>Junta</small>
-                            <p>{{ doc.meeting }}</p>
-                        </div>
 
                         <!-- Show data for economic summaries -->
                         <div *ngIf="documentType === 'Resums Econòmics'" class="itemContain item"><small>Data</small>
@@ -124,15 +121,11 @@
                         <div *ngIf="documentType === 'Comunicats'" class="itemContain item"><small>Usuari</small>
                             <p>{{ doc.user }}</p>
                         </div>
-                        <div *ngIf="documentType === 'Comunicats'" class="itemContain item"><small>Acta</small>
-                            <p *ngIf="doc.boardMinute">{{ doc.boardMinute }}</p>
-                            <p *ngIf="!doc.boardMinute">-</p>
-                        </div>
 
                         <!-- Show data for all documents types -->
                         <div class="itemContain item"><small>Comentaris</small>
-                            <p *ngIf="doc.comments !==''">{{ doc.comments }}</p>
-                            <p *ngIf="doc.comments ===''">-</p>
+                            <p *ngIf="doc.comments !== 'null' && doc.comments !==''">{{ doc.comments }}</p>
+                            <p *ngIf="doc.comments === 'null' || doc.comments ===''">-</p>
                         </div>
                         <div class="itemContain item center">
                             <p *ngIf="doc.filename && doc.filename !==''"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(doc)"></i></p>

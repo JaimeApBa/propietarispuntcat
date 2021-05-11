@@ -80,6 +80,14 @@
                         <div class="itemContain item"><small>Lloc</small>
                             <p>{{ meeting.place }}</p>
                         </div>
+                        <div class="itemContain item"><small>Convocatòria</small>
+                            <p *ngIf="meeting.idStatement !== null"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(meeting.statement, meeting.idStatement)"></i></p>
+                            <p *ngIf="meeting.idStatement === null">-</p>
+                        </div>
+                        <div class="itemContain item"><small>Acte</small>
+                            <p *ngIf="meeting.idBoardMinute !== null"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(meeting.boardMinute, meeting.idBoardMinute)"></i></p>
+                            <p *ngIf="meeting.idBoardMinute === null">-</p>
+                        </div>
                     </div>
 
                     <div class="buttonsWrap" *ngIf="isAdmin || (userRole !=='Propietari' && userRole !=='Proveidor')">
@@ -104,6 +112,14 @@
                         </div>
                         <div class="itemContain item"><small>Lloc</small>
                             <p>{{ meeting.place }}</p>
+                        </div>
+                        <div class="itemContain item"><small>Convocatòria</small>
+                            <p *ngIf="meeting.idStatement !== null || meeting.idStatement !== ''"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(meeting.statement, meeting.idStatement)"></i></p>
+                            <p *ngIf="meeting.idStatement === null || meeting.idStatement === ''">-</p>
+                        </div>
+                        <div class="itemContain item"><small>Acte</small>
+                            <p *ngIf="meeting.idBoardMinute !== null || meeting.idBoardMinute !== ''"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(meeting.boardMinute, meeting.idBoardMinute)"></i></p>
+                            <p *ngIf="meeting.idBoardMinute === null || meeting.idBoardMinute === ''">-</p>
                         </div>
                     </div>
 

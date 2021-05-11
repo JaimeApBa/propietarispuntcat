@@ -81,6 +81,7 @@ export class RefurbishmentComponent implements OnInit {
               this.hide = true;
             } else {
               this.searchedRefurbishment = resp.results;
+              console.log(this.searchedRefurbishment);
             }
           });
         } else {

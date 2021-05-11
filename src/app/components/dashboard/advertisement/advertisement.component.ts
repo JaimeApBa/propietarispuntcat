@@ -89,7 +89,7 @@ export class AdvertisementComponent implements OnInit {
 
   // download File
   downloadFile(document, id): void {
-    console.log(document);
+
     this.documentsService.downloadFile(id).subscribe(
       resp => {
        const blob = new Blob([resp], {type: resp.type});
@@ -104,7 +104,6 @@ export class AdvertisementComponent implements OnInit {
   }
 
   removeAdvertisement(advertisement): void {
-    console.log(advertisement);
     this.advertisementService.removeAdvertisement(this.cif, advertisement.id).subscribe(
       resp => this.getAdvertisements()
     );
