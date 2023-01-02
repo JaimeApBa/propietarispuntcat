@@ -1,0 +1,26 @@
+.card {
+    margin-bottom: 50px;
+}
+
+.search-field {
+    font-size: 14px;
+    border: 2px solid hsla(0, 0%, 51%, 1);
+    justify-content: center;
+    width: 85vw;
+    height: 50px;
+    background-color: hsl(0, 0%, 96%);
+    position: absolute;
+    margin-top: -20px;
+    cursor: pointer;
+    text-indent: 10px;
+}
+
+label {
+    color: hsla(191, 71%, 40%, 1);
+}
+
+@media screen and (min-width: 425px) {
+    .search-field {
+        width: 400px;
+    }
+}

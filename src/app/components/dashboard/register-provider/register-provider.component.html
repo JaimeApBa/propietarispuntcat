@@ -1,0 +1,74 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="providerForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Proveïdor</p>
+            <select formControlName="profession" name="profession" id="profession" class="custom-select" #profession>
+                <option selected>Ofici</option>
+                <option disabled>_________________________</option>
+                <option *ngFor="let profession of professions">{{profession.name}}</option>    
+            </select>
+            <div>
+                <button class="button-2" [routerLink]="['/registerProfession', cif]">Afegir Ofici</button>
+            </div>
+            <div *ngIf="submitted && f.profession.errors" class="invalid-feedback">
+                <p *ngIf="f.profession.errors.required">És obligatori seleccionar un ofici</p>
+            </div>
+            <input type="text" formControlName="cif" id="cif" name="cif" placeholder="CIF" [ngClass]="{ 'is-invalid': submitted && f.cif.errors }">
+            <div *ngIf="submitted && f.cif.errors" class="invalid-feedback">
+                <p *ngIf="f.cif.errors.required">El CIF és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="name" id="name" name="name" placeholder="Nom Proveïdor" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <p *ngIf="f.name.errors.required">El nom és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="address" id="address" name="address" placeholder="Adreça" #input (keyup)="getAddress(input.value)" [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+
+            <div *ngIf="searchFormattedAddress !== undefined" class="search-field" (click)="getSearchedAddress(matchAddress)" [ngClass]="{'hide': hide===true}">
+                <p>{{searchFormattedAddress}}</p>
+            </div>
+
+            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                <p *ngIf="f.address.errors.required">L'Adreça és obligatòria</p>
+            </div>
+
+            <input type="text" formControlName="postalCode" id="postalCode" name="postalCode" placeholder="Codi Postal" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }">
+            <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+                <p *ngIf="f.postalCode.errors.required">El codi postal és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="city" id="city" name="city" placeholder="Ciutat" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+            <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                <p *ngIf="f.city.errors.required">La nom de la ciutat és obligatòria</p>
+            </div>
+
+            <input type="text" formControlName="country" id="country" name="country" placeholder="País" [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+            <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                <p *ngIf="f.country.errors.required">El nom del país és obligatori</p>
+            </div>
+
+            <input type="email" formControlName="email" id="email" name="email" placeholder="Introdueix el correu electrònic" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <p *ngIf="f.email.errors.required">El correu electrònic és obligatori</p>
+                <p *ngIf="f.email.errors.email">Introdueix un correu electrònic correcte</p>
+            </div>
+
+            <input type="tel" formControlName="phone" id="phone" name="phone" placeholder="Telèfon" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+            <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                <p *ngIf="f.phone.errors.pattern">El número de telèfon no és correcte</p>
+            </div>
+
+            <p *ngIf="message !== null || message !==''" class="valid-submit"> {{message}}</p>
+            <p *ngIf="errorMessage !== null || errorMessage !== ''" class="invalid-feedback"> {{errorMessage}}</p>
+
+            <button class="button-1">Registrar</button>
+            <p class="center"><a [routerLink]="['/providers', cif]" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

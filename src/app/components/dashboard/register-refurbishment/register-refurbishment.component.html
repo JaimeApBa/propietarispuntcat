@@ -1,0 +1,42 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="refurbishmentForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Reforma</p>
+            <!-- select the work state-->
+            <select formControlName="workState" name="workState" class="custom-select" #selectWorkState>
+                <option id="selected" selected>Estat de la Reforma</option>
+                <option disabled>_________________________________</option>
+                <option *ngFor="let workState of workStates">{{workState.name}}</option>    
+            </select>
+            <div *ngIf="submitted && f.workState.errors" class="invalid-feedback">
+                <p *ngIf="f.workState.errors.required">És obligatori seleccionar l'estat de la reforma</p>
+            </div>
+            <!-- select the provider-->
+            <div class="mt-20">
+                <select formControlName="provider" name="provider" class="custom-select" #selectProvider>
+                <option selected>Proveïdor</option>
+                <option disabled>_________________________________</option>
+                <option *ngFor="let provider of providers">{{provider.name}}</option>    
+            </select>
+                <div *ngIf="submitted && f.provider.errors" class="invalid-feedback">
+                    <p *ngIf="f.provider.errors.required">És obligatori seleccionar un proveïdor</p>
+                </div>
+            </div>
+            <!-- Description-->
+            <input type="text" formControlName="description" name="description" placeholder="Descripció" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                <p *ngIf="f.description.errors.required">La descripció és obligatòria</p>
+            </div>
+
+            <p *ngIf="message !== null" class="valid-submit"> {{message}}</p>
+
+            <button class="button-1">Registrar</button>
+            <p class="center"><a [routerLink]="['/refurbishments', cif]" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

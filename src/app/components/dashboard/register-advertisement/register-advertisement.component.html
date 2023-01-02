@@ -1,0 +1,36 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="advertisementForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Anunci</p>
+
+            <!-- Name-->
+            <input type="text" formControlName="name" name="name" placeholder="Nom" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <p *ngIf="f.name.errors.required">El nom és obligatòri</p>
+            </div>
+            <!-- Date advertisement-->
+            <input type="text" (focus)="changeTypeFocus($event.target)" (blur)="changeTypeBlur($event.target)" formControlName="date" placeholder="Data anunci (yyyy-mm-dd)" [ngClass]="{ 'is-invalid': submitted && f.date.errors }">
+            <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+                <p *ngIf="f.date.errors.required">La data és obligatòria</p>
+            </div>
+
+            <!-- Description-->
+            <textarea type="text" formControlName="description" name="description" placeholder="Anunci" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                <p *ngIf="f.description.errors.required">La descripció és obligatòria</p>
+            </div>
+
+
+
+            <p *ngIf="message !== null" class="valid-submit"> {{message}}</p>
+            <p *ngIf="errorMessage !== null || errorMessage !== ''" class="invalid-feedback"> {{errorMessage}}</p>
+            <button class="button-1">Registrar</button>
+            <p class="center"><a [routerLink]="['/advertisements', cif]" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

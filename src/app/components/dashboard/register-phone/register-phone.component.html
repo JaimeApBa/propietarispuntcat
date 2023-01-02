@@ -1,0 +1,27 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="phoneForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Telèfon</p>
+
+            <input type="text" formControlName="name" id="name" name="name" placeholder="Nom" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <p *ngIf="f.name.errors.required">El nom és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="numberphone" id="numberphone" name="numberphone" placeholder="Número telèfon" [ngClass]="{ 'is-invalid': submitted && f.numberphone.errors }">
+            <div *ngIf="submitted && f.numberphone.errors" class="invalid-feedback">
+                <p *ngIf="f.numberphone.errors.required">El número de telèfon és obligatori</p>
+            </div>
+
+            <p *ngIf="message !== null || message !== ''" class="valid-submit"> {{message}}</p>
+            <p *ngIf="errorMessage !== null || errorMessage !== ''" class="invalid-feedback"> {{errorMessage}}</p>
+            <button class="button-1">Registrar</button>
+            <p class="center"><a [routerLink]="['/phones', cif]" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

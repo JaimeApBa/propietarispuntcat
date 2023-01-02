@@ -1,0 +1,79 @@
+.containWrap:not(:first-child) {
+    min-height: 225px;
+}
+
+.button-3 {
+    margin-left: 10px;
+}
+
+.red-underline {
+    width: 100%;
+}
+
+.text-format {
+    text-indent: 10px;
+    margin-top: -20px;
+    margin-bottom: 60px;
+}
+
+form {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+
+/*Custom select*/
+
+.custom-select {
+    height: 40px;
+    border: 1px solid hsla(0, 70%, 69%, 1);
+    color: hsla(0, 70%, 69%, 1);
+    background-color: hsla(0, 70%, 69%, 0.1);
+    text-indent: 3px;
+    width: 100%;
+}
+
+select option:disabled {
+    color: hsla(0, 70%, 69%, 1);
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.text-mb {
+    margin-bottom: 40px;
+}
+
+@media screen and (min-width: 425px) {
+    .text-mb-60 {
+        margin-bottom: 60px;
+        margin-top: -5px;
+    }
+    .text {
+        margin-bottom: 30px;
+    }
+    .custom-select {
+        margin-bottom: 50px;
+    }
+    .text-mb-40 {
+        margin-bottom: 55px;
+        margin-top: -5px;
+    }
+    .text-mb {
+        margin-bottom: 0px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .content {
+        margin-top: -419px;
+    }
+    .custom-select {
+        width: 200px;
+    }
+}

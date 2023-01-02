@@ -1,0 +1,71 @@
+<!--Adding the background, header, and menu-->
+<div class="bg-gray"></div>
+<app-header></app-header>
+<app-menu></app-menu>
+
+<!--Adding the content of dashboard-->
+<section class="content" id="main">
+    <div class="content-dashboard center">
+        <div class="contain">
+            <p class="text red-underline"></p>
+
+            <!--user profile-->
+            <div class="containWrap center">
+                <div *ngFor="let user of userProfile" class="itemsWrap column">
+                    <div class="itemContainWrap">
+                        <div class="itemContain item"><small>Nom</small>
+                            <p>{{user.name}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Cognoms</small>
+                            <p>{{user.fullname}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Correu Electrònic</small>
+                            <p>{{user.email}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Telèfon</small>
+                            <p *ngIf="user.phone">{{user.phone}}</p>
+                            <p *ngIf="!user.phone">-</p>
+                        </div>
+                    </div>
+                    <div class="buttonsWrap">
+                        <button class="button-3 bt-red" (click)="editUser(user)">Editar</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--your communities-->
+            <p class="mt-top-5 red-underline" [ngClass]="{'text-mb-60' : communityList.length !== 0}">Les teves comunitats</p>
+            <div class="containWrap center">
+                <div *ngIf="communityList.length === 0" class="itemContainWrap text-format">
+                    <p>No pertanys a cap comunitat</p>
+                </div>
+                <div *ngFor="let community of communityList" class="itemsWrap column" [routerLink]="['/community', community.cif]">
+                    <div class="itemContainWrap">
+                        <div class="itemContain item"><small>Nom</small>
+                            <p>{{community.name}}</p>
+                        </div>
+                        <div class="itemContain item"><small>CIF</small>
+                            <p>{{community.cif}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Adreça</small>
+                            <p>{{community.address}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Codi Postal</small>
+                            <p>{{community.postalCode}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Ciutat</small>
+                            <p>{{community.city}}</p>
+                        </div>
+                    </div>
+                    <div class="buttonsWrap">
+                        <button class="button-3 bt-blue">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+            <p class="red-underline"></p>
+
+        </div>
+    </div>
+
+</section>

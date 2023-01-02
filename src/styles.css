@@ -1,1 +1,327 @@
-/* You can add global styles to this file, and also import other style files */
+/* Background in the login and register pages*/
+
+html {
+    height: calc(100% - 20px);
+    position: relative;
+}
+
+body {
+    height: 100%;
+}
+
+.bg {
+    background: url("./assets/img/alfons-morales-OncSWg15MIk-unsplash.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.bg::before {
+    content: "";
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+
+/* General Background */
+
+.bg-gray {
+    background-color: #F4F4F4;
+    height: 100%;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+/* General styles */
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-wrap {
+    height: 100%;
+}
+
+.content {
+    height: 80vh;
+}
+
+.contain {
+    width: 90%;
+}
+
+.red-topline {
+    color: hsla(0, 0%, 51%, 1);
+}
+
+.card {
+    background-color: hsla(0, 14%, 99%, 1);
+    border-radius: 15px;
+    padding: 25px 0;
+    width: 100%;
+}
+
+form>input {
+    display: block;
+    width: 85vw;
+    height: 50px;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: hsla(191, 71%, 40%, 0.5);
+    background-color: hsla(191, 71%, 40%, 0.1);
+    color: hsla(191, 71%, 40%, 1);
+    font-size: 16px;
+    text-indent: 10px;
+    margin: 20px 0;
+}
+
+form> ::-webkit-input-placeholder {
+    color: hsla(191, 71%, 40%, 0.7);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+textarea,
+input,
+select,
+button {
+    font-family: Roboto;
+}
+
+.button-1 {
+    width: 100%;
+    height: 50px;
+    background-color: hsla(0, 70%, 69%, 1);
+    border: none;
+    border-radius: 10px;
+    color: hsla(0, 14%, 99%, 1);
+    font-size: 18px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.button-1 a {
+    color: hsla(0, 14%, 99%, 1);
+}
+
+.button-2 {
+    width: 100%;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid hsla(0, 70%, 69%, 1);
+    border-radius: 10px;
+    color: hsla(0, 70%, 69%, 1);
+    font-size: 18px;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.button-3 {
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    font-size: 14px;
+    margin: 5px 0;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.bt-green {
+    border: 1px solid hsla(112, 25%, 49%, 1);
+    color: hsla(112, 25%, 49%, 1);
+}
+
+.bt-red {
+    border: 1px solid hsla(0, 70%, 69%, 1);
+    color: hsla(0, 70%, 69%, 1);
+}
+
+.bt-blue {
+    border: 1px solid hsla(191, 71%, 40%, 1);
+    color: hsla(191, 71%, 40%, 1);
+}
+
+.text-link {
+    color: hsla(191, 71%, 40%, 1);
+}
+
+.ft-size-16 {
+    font-size: 16px;
+}
+
+.blue-underline {
+    border-bottom: 1px solid hsla(191, 71%, 40%, 1);
+}
+
+.red-underline {
+    color: hsla(0, 70%, 69%, 1);
+    border-bottom: 1px solid hsla(0, 70%, 69%, 1);
+}
+
+.hide {
+    display: none;
+}
+
+small {
+    color: hsla(0, 0%, 51%, 1);
+    display: block;
+    padding-top: 10px;
+    margin-bottom: -10px;
+}
+
+
+/* Pages styles */
+
+.searchWrap {
+    flex-wrap: wrap;
+}
+
+.containWrap,
+.itemsWrap {
+    flex-flow: column wrap;
+}
+
+.buttonsWrap {
+    display: flex;
+    width: 95%;
+    justify-content: flex-end;
+}
+
+.itemsWrap,
+.itemContainWrap {
+    display: flex;
+    width: 100%;
+    flex-flow: wrap;
+    height: 100%;
+}
+
+.itemsWrap {
+    margin-bottom: 40px;
+}
+
+.itemContain,
+.text-format {
+    width: 100%;
+    height: auto;
+    border-width: 1px;
+    border-color: hsla(191, 71%, 40%, 0.5);
+    background-color: hsla(191, 71%, 40%, 0.1);
+    color: hsla(191, 71%, 40%, 1);
+    font-size: 16px;
+    margin: 20px 0;
+    padding-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.itemContain {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.item:not(:first-child) {
+    margin-top: -20px;
+}
+
+
+/* class for styling error forms */
+
+.invalid-feedback {
+    color: hsla(0, 70%, 69%, 1);
+    font-size: 14px;
+}
+
+.is-invalid {
+    border: 1px solid hsla(0, 70%, 69%, 1);
+}
+
+.valid-submit {
+    color: hsla(112, 25%, 49%, 1);
+    font-size: 14px;
+}
+
+@media screen and (min-width: 425px) {
+    /* General styles */
+    .card {
+        max-width: 550px;
+    }
+    form>input,
+    .button-1,
+    .button-2 {
+        width: 400px;
+    }
+    /* Pages styles */
+    .searchWrap {
+        justify-content: flex-start;
+    }
+    .containWrap {
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .itemsWrap,
+    .itemContainWrap {
+        flex-flow: nowrap;
+    }
+    .column {
+        flex-direction: column;
+    }
+    .itemContain {
+        width: calc(55vw/ 6);
+        height: auto;
+    }
+    .item {
+        flex: 1;
+        margin-top: 0;
+    }
+    .item:first-child {
+        margin-top: -20px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .content {
+        position: relative;
+        left: 30vw;
+        margin-top: -126px;
+        width: 60vw;
+    }
+}
+
+@media (max-width:1200px) and (min-width: 900px) {
+    .content {
+        position: relative;
+        width: 55vw;
+    }
+}

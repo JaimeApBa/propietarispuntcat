@@ -1,0 +1,60 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="communityForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Comunitat</p>
+            <input type="text" formControlName="cif" id="cif" name="cif" placeholder="CIF" [ngClass]="{ 'is-invalid': submitted && f.cif.errors }">
+            <div *ngIf="submitted && f.cif.errors" class="invalid-feedback">
+                <p *ngIf="f.cif.errors.required">El CIF és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="address" id="address" name="address" placeholder="Adreça" #input (keyup)="getAddress(input.value)" [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+            <div *ngIf="searchFormattedAddress !== undefined" class="search-field" (click)="getSearchedAddress(matchAddress)" [ngClass]="{'hide': hide===true}">
+                <p>{{searchFormattedAddress}}</p>
+            </div>
+            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                <p *ngIf="f.address.errors.required">L'Adreça és obligatòria</p>
+            </div>
+
+            <input type="text" formControlName="postalCode" id="postalCode" name="postalCode" placeholder="Codi Postal" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }">
+            <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+                <p *ngIf="f.postalCode.errors.required">El codi postal és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="city" id="city" name="city" placeholder="Ciutat" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+            <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                <p *ngIf="f.city.errors.required">La nom de la ciutat és obligatòria</p>
+            </div>
+
+            <input type="text" formControlName="country" id="country" name="country" placeholder="País" [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+            <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                <p *ngIf="f.country.errors.required">El nom del país és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="name" id="name" name="name" placeholder="Nom Comunitat" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <p *ngIf="f.name.errors.required">El nom és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="floor" id="floor" name="floor" placeholder="Pis" [ngClass]="{ 'is-invalid': submitted && f.floor.errors }">
+            <div *ngIf="submitted && f.floor.errors" class="invalid-feedback">
+                <p *ngIf="f.floor.errors.required">El pis és obligatori</p>
+            </div>
+
+            <input type="text" formControlName="door" id="door" name="door" placeholder="Porta" [ngClass]="{ 'is-invalid': submitted && f.door.errors }">
+            <div *ngIf="submitted && f.door.errors" class="invalid-feedback">
+                <p *ngIf="f.door.errors.required">La porta és obligatòria</p>
+            </div>
+
+            <input type="text" formControlName="side" id="side" name="side" placeholder="Escala">
+
+            <p *ngIf="message !== null" class="valid-submit"> {{message}}</p>
+            <button class="button-1">Registrar</button>
+            <p class="center"><a routerLink="/home" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

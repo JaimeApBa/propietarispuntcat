@@ -1,0 +1,22 @@
+<!-- Background -->
+<div class="bg-gray"></div>
+<app-header></app-header>
+
+<section class="center">
+    <div class="card center">
+        <form [formGroup]="professionForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Ofici</p>
+
+            <input type="text" formControlName="name" id="name" name="name" placeholder="Nom Ofici" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <p *ngIf="f.name.errors.required">El nom és obligatori</p>
+            </div>
+
+            <p *ngIf="message !== null || message !== ''" class="valid-submit"> {{message}}</p>
+            <p *ngIf="errorMessage !== null || errorMessage !== ''" class="invalid-feedback"> {{errorMessage}}</p>
+            <button class="button-1">Registrar</button>
+            <p class="center"><a [routerLink]="['/registerProvider', cif]" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

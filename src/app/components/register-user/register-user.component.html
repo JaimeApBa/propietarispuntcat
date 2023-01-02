@@ -1,0 +1,52 @@
+<!-- Background -->
+<div class="bg"></div>
+
+<app-header></app-header>
+
+<section class="center">
+
+    <div class="card center">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <p class="red-underline">Dades Usuari</p>
+            <input *ngIf="!isUpdatePassword" type="text" formControlName="name" id="name" name="name" placeholder="Nom" [ngClass]="{ 'is-invalid': !isUpdatePassword && submitted && f.name.errors }">
+            <div *ngIf="!isUpdatePassword && submitted && f.name.errors" class="invalid-feedback">
+                <p *ngIf="!isUpdatePassword && f.name.errors.required">El nom és obligatori</p>
+            </div>
+
+            <input *ngIf="!isUpdatePassword" type="text" formControlName="fullname" id="fullname" name="fullname" placeholder="Cognoms" [ngClass]="{ 'is-invalid': !isUpdatePassword && submitted && f.fullname.errors }">
+            <div *ngIf="!isUpdatePassword && submitted && f.fullname.errors" class="invalid-feedback">
+                <p *ngIf="!isUpdatePassword && f.fullname.errors.required">Els cognoms són obligatoris</p>
+            </div>
+
+            <input type="email" formControlName="email" id="email" name="email" placeholder="Introdueix el correu electrònic" [ngClass]="{ 'is-invalid': !isUpdatePassword && submitted && f.email.errors }">
+            <div *ngIf="!isUpdatePassword && submitted && f.email.errors" class="invalid-feedback">
+                <p *ngIf="!isUpdatePassword && f.email.errors.required">El correu electrònic és obligatori</p>
+
+                <p *ngIf="f.email.errors.pattern">Introdueix un correu electrònic correcte</p>
+            </div>
+
+            <input *ngIf="!isUpdatePassword" type="tel" formControlName="phone" id="phone" name="phone" placeholder="Telèfon" [ngClass]="{ 'is-invalid': !isUpdatePassword && submitted && f.phone.errors }">
+            <div *ngIf="!isUpdatePassword && submitted && f.phone.errors" class="invalid-feedback">
+                <p *ngIf="!isUpdatePassword && f.phone.errors.pattern">El número de telèfon no és correcte</p>
+            </div>
+
+            <input *ngIf="!isUpdateUser" type="password" formControlName="password" id="password" name="password" placeholder="Contrasenya" [ngClass]="{ 'is-invalid': !isUpdateUser && submitted && f.password.errors }">
+            <div *ngIf="!isUpdateUser && submitted && f.password.errors" class="invalid-feedback">
+                <p *ngIf="!isUpdateUser && f.password.errors.required">La contrasenya és obligatòria</p>
+            </div>
+
+            <input *ngIf="!isUpdateUser" type="password" formControlName="confirmPassword" id="confirmPassword" name="confirmPassword" placeholder="Repeteix Contrasenya" [ngClass]="{ 'is-invalid': !isUpdateUser && submitted && f.confirmPassword.errors }">
+            <div *ngIf="!isUpdateUser && submitted && f.confirmPassword.errors" class="invalid-feedback">
+                <p *ngIf="!isUpdateUser && f.confirmPassword.errors.required">La contrasenya de confirmació és obligatòria</p>
+                <p *ngIf="!isUpdateUser && f.confirmPassword.errors.isEqual">Les contrasenyes no coincideixen</p>
+            </div>
+
+            <p *ngIf="message !== null" class="valid-submit"> {{message}}</p>
+            <p *ngIf="errorMessage !== null" class="invalid-feedback"> {{errorMessage}}</p>
+            <button class="button-1">Registrar</button>
+            <p *ngIf="!isUpdateUser" class="center"><a routerLink="" class="text-link">Tornar</a></p>
+            <p *ngIf="isUpdateUser" class="center"><a routerLink="/profile" class="text-link">Tornar</a></p>
+        </form>
+    </div>
+
+</section>

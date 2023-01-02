@@ -1,0 +1,137 @@
+<!--Adding the background, header, and menu-->
+<div class="bg-gray"></div>
+<app-header></app-header>
+<app-menu-community></app-menu-community>
+
+<!--Adding the content -->
+<section class="content" id="main" (keyup)="escape($event)">
+    <div class="content-dashboard center">
+        <div class="contain">
+            <p class="text red-underline"></p>
+
+            <!--search bar-->
+            <div class="searchWrap center" [ngClass]="{ 'text-mb-20': !isAdmin && userRole === 'Propietari' || userRole === 'Proveïdor' }">
+                <input type="text" class="searchBar" placeholder="Busca una junta" id="search-text-input" #input (keyup)="getMeeting(input.value)">
+                <div class="button-holder center">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </div>
+                <div *ngIf="searchedMeeting !== undefined" class="search-field" [ngClass]="{'hide': hide }">
+                    <div class="search-field-container">
+                        <div *ngFor="let result of searchedMeeting | slice:0:5" class="search-results-bar">
+                            <p (click)="getSelectedOption(result)">{{result.description}} - {{ result.date | date: 'd-MM-y' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selectionContent">
+                <!--button register-->
+                <div class="buttonContent" *ngIf="isAdmin  || (userRole !=='Propietari' && userRole !=='Proveidor')">
+                    <div class="bt center">
+                        <button class="button-1" [routerLink]="[ '/registerMeeting', cif]">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!meetingList || meetingList.length === 0" class="containWrap center">
+                <div *ngIf="!meetingList || meetingList.length === 0" class="itemContainWrap text-format">
+                    <p>La teva comunitat no té juntes</p>
+                </div>
+            </div>
+            <!--show the result of the meeting searched-->
+            <div *ngIf="meetingList && meetingList.length !== 0 && hideResult" class="containWrap center">
+                <div *ngFor="let meeting of meetingList" class="itemsWrap column">
+                    <div class="itemContainWrap">
+                        <div class="itemContain item"><small>Esdeveniment</small>
+                            <p>{{ meeting.description }}</p>
+                        </div>
+                        <div class="itemContain item "><small>Data</small>
+                            <p>{{ meeting.date | date: 'd-MM-y'}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Hora</small>
+                            <p>{{ meeting.date | date:'H:mm' }}</p>
+                        </div>
+                        <div class="itemContain item"><small>Lloc</small>
+                            <p>{{ meeting.place }}</p>
+                        </div>
+                    </div>
+
+                    <div class="buttonsWrap" *ngIf="isAdmin || (userRole !=='Propietari' && userRole !=='Proveidor')">
+                        <button class="button-3 bt-blue" (click)="removeMeeting(meeting)">Eliminar</button>
+                        <button class="button-3 bt-red" (click)="editMeeting(meeting)">Editar</button>
+                    </div>
+                </div>
+
+                <p class="center text-link ft-size-16" (click)="changeHideResult()">Mostrar tots</p>
+            </div>
+            <!--show data of the current meetings-->
+            <div *ngIf="meetingFuturList && meetingFuturList.length !== 0 && !hideResult" class="containWrap center">
+                <div *ngFor="let meeting of meetingFuturList" class="itemsWrap column">
+                    <div class="itemContainWrap">
+                        <div class="itemContain item"><small>Esdeveniment</small>
+                            <p>{{ meeting.description }}</p>
+                        </div>
+                        <div class="itemContain item "><small>Data</small>
+                            <p>{{ meeting.date | date: 'd-MM-y'}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Hora</small>
+                            <p>{{ meeting.date | date:'H:mm' }}</p>
+                        </div>
+                        <div class="itemContain item"><small>Lloc</small>
+                            <p>{{ meeting.place }}</p>
+                        </div>
+                        <div class="itemContain item"><small>Convocatòria</small>
+                            <p *ngIf="meeting.idStatement !== null"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(meeting.statement, meeting.idStatement)"></i></p>
+                            <p *ngIf="meeting.idStatement === null">-</p>
+                        </div>
+                        <div class="itemContain item"><small>Acte</small>
+                            <p *ngIf="meeting.idBoardMinute !== null"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(meeting.boardMinute, meeting.idBoardMinute)"></i></p>
+                            <p *ngIf="meeting.idBoardMinute === null">-</p>
+                        </div>
+                    </div>
+
+                    <div class="buttonsWrap" *ngIf="isAdmin || (userRole !=='Propietari' && userRole !=='Proveidor')">
+                        <button class="button-3 bt-blue" (click)="removeMeeting(meeting)">Eliminar</button>
+                        <button class="button-3 bt-red" (click)="editMeeting(meeting)">Editar</button>
+                    </div>
+                </div>
+            </div>
+            <!--show data of the lasts meetings-->
+            <p *ngIf="meetingPastList && meetingPastList.length !== 0 && !hideResult" class="text-mb-60 red-underline">Juntes Anteriors</p>
+            <div *ngIf="meetingPastList && meetingPastList.length !== 0 && !hideResult" class="containWrap center">
+                <div *ngFor="let meeting of meetingPastList" class="itemsWrap column">
+                    <div class="itemContainWrap">
+                        <div class="itemContain item"><small>Esdeveniment</small>
+                            <p>{{ meeting.description }}</p>
+                        </div>
+                        <div class="itemContain item "><small>Data</small>
+                            <p>{{ meeting.date | date: 'd-MM-y'}}</p>
+                        </div>
+                        <div class="itemContain item"><small>Hora</small>
+                            <p>{{ meeting.date | date:'H:mm' }}</p>
+                        </div>
+                        <div class="itemContain item"><small>Lloc</small>
+                            <p>{{ meeting.place }}</p>
+                        </div>
+                        <div class="itemContain item"><small>Convocatòria</small>
+                            <p *ngIf="meeting.idStatement !== null || meeting.idStatement !== ''"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(meeting.statement, meeting.idStatement)"></i></p>
+                            <p *ngIf="meeting.idStatement === null || meeting.idStatement === ''">-</p>
+                        </div>
+                        <div class="itemContain item"><small>Acte</small>
+                            <p *ngIf="meeting.idBoardMinute !== null || meeting.idBoardMinute !== ''"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true" title="Baixa l'arxiu" (click)="downloadFile(meeting.boardMinute, meeting.idBoardMinute)"></i></p>
+                            <p *ngIf="meeting.idBoardMinute === null || meeting.idBoardMinute === ''">-</p>
+                        </div>
+                    </div>
+
+                    <div class="buttonsWrap" *ngIf="isAdmin || (userRole !=='Propietari' && userRole !=='Proveidor')">
+                        <button class="button-3 bt-blue" (click)="removeMeeting(meeting)">Eliminar</button>
+                        <button class="button-3 bt-red" (click)="editMeeting(meeting)">Editar</button>
+                    </div>
+                </div>
+            </div>
+            <p class="red-underline"></p>
+        </div>
+
+    </div>
+
+</section>
